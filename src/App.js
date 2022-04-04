@@ -1,12 +1,13 @@
 import './App.css';
 import React, { useState } from 'react';
+import axios from 'axios';
+import AddNewDonationPlace from './screens/AddNewDonationPlace';
+
 
 function App() {
-  const [input, setInput] = useState("");
-
   return (
-    <div className="App">
-      Donationn
+    <div className="App" >
+      <AddNewDonationPlace/>
     </div>
   );
 }
