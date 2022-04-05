@@ -1,0 +1,41 @@
+.form__new_donation {
+    margin: 5rem;
+    display: grid;
+    justify-content: center;
+}
+.label {
+    margin-left: auto;
+    align-content: center;
+}
+.form {
+    /* margin-left: 20rem; */
+    margin-top: 2rem;
+    font: normal normal normal 22px/32px Heebo;
+    color: #363636;
+}
+
+.input {
+    width: 431px;
+    height: 63px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 10px;
+    line-height: 1;
+    box-sizing: border-box;
+    outline: none;
+    font: normal normal normal 22px/32px Heebo;
+    letter-spacing: 0px;
+    color: #363636;
+    margin-bottom: 0.2rem;
+    text-align: right;
+}
+
+.btn {
+    width: 95px;
+    height: 36px;
+    background: #046B3B 0% 0% no-repeat padding-box;
+    border-radius: 10px;
+    font: normal normal 300 18px/27px Heebo;
+    color: #FFFFFF;
+    margin-top: 1rem;
+    margin-left: 21rem;
+}
