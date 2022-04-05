@@ -1,15 +1,33 @@
 import './App.css';
-import React, { useState } from 'react';
-import axios from 'axios';
-import AddNewDonationPlace from './screens/AddNewDonationPlace';
+import React from 'react';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+
+import AddNewDonationPlace from './pages/AddNewDonationPlace';
+import SearchDonation from './pages/SearchDonation';
+import MainNavigation from './components/Navigation/MainNavigation';
 
 
-function App() {
+const App = () => {
   return (
-    <div className="App" >
-      <AddNewDonationPlace/>
-    </div>
+    <Router>
+      <MainNavigation />
+      <main>
+        <Switch>
+          <Route path="/" exact>
+            <AddNewDonationPlace />
+          </Route>
+          <Route path="/donation/search" exact>
+            <SearchDonation />
+          </Route>
+          <Redirect to="/" />
+        </Switch>
+      </main>
+    </Router>
   );
 }
 
 export default App;
+
+
+/* exact - יפעיל את הקומפוננטה רק כאשר הדף יהיה בלינק המתאים */
+/* Redirect - דף ברירת מחדל */
