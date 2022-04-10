@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react";
-
+import API from '../../ApiService';
 import { Map, Marker, GoogleApiWrapper, InfoWindow } from 'google-maps-react';
 
 // export class MapContainer extends Component {  state = {
@@ -111,5 +111,5 @@ const Maps = props => {
 };
 
 export default GoogleApiWrapper({
-    apiKey: "AIzaSyAXSiRDMKr_6o0PKJs7WGnG-38MeD7G5Po"
+    apiKey: `${API.api_key_google_maps}`
 })(Maps)
