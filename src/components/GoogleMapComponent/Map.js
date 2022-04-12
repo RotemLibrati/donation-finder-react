@@ -26,91 +26,73 @@ function Map(props) {
 
     const [map, setMap] = useState(/** @type google.maps.Map */ (null))
     const [directionsResponse, setDirectionsResponse] = useState({ lat: 31.2492119, lng: 34.7842072 })
+    const [markerLocation, setMarkerLocation] = useState({ lat: 31.2492119, lng: 34.7842072 })
     const [distance, setDistance] = useState('')
     const [duration, setDuration] = useState('')
-
+                    
     useEffect(() => {
-        if(props?.chosenSearchDonation != 'Empty')
-            setDirectionsResponse(props.chosenSearchDonation.location.coordinates)
+      if(props?.chosenSearchDonation != 'Empty')  
+        setMarkerLocation(props.chosenSearchDonation.location.coordinates)
+      else { setMarkerLocation(props.userLocation)}
     },[props])
-    
-    /** @type React.MutableRefObject<HTMLInputElement> */
-  const originRef = useRef()
-  /** @type React.MutableRefObject<HTMLInputElement> */
-  const destiantionRef = useRef()
 
-    if(!isLoaded){
-        return <label>Loading...</label>
-    }
-
+    useEffect(()=>{
+      if (isLoaded && navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                setMarkerLocation({lat:position.coords.latitude, lng: position.coords.longitude} )
+            }, (e) => {console.log(e.message)} , {
+                      enableHighAccuracy: true,
+                      timeout: 5 * 1000, // 5 seconds
+                      maximumAge: 0
+            } )
+          }
+    },[navigator])
     
-    async function calculateRoute() {
-        if (originRef.current.value === '' || destiantionRef.current.value === '') {
-          return
-        }
-        // eslint-disable-next-line no-undef
-        const directionsService = new google.maps.DirectionsService()
-        const results = await directionsService.route({
-          origin: originRef.current.value,
-          destination: destiantionRef.current.value,
-          // eslint-disable-next-line no-undef
-          travelMode: google.maps.TravelMode.DRIVING,
-        })
-        setDirectionsResponse(results)
-        setDistance(results.routes[0].legs[0].distance.text)
-        setDuration(results.routes[0].legs[0].duration.text)
-      }
-    
-      function clearRoute() {
-        setDirectionsResponse(null)
-        setDistance('')
-        setDuration('')
-        originRef.current.value = ''
-        destiantionRef.current.value = ''
-      }
-    
-      const setMarkerLocation = () => {
-        Geocode.fromAddress(originRef.current.value).then(
-            (response) => {
-                const { lat, lng } = response.results[0].geometry.location;
-                setDirectionsResponse(response.results[0].geometry.location);
-            },
-            (error) => {
-              console.error(error);
-            }
-          );
-      }
+      // const handleSetMarkerLocation = () => {
+      //   Geocode.fromAddress(originRef.current.value).then(
+      //       (response) => {
+      //           const { lat, lng } = response.results[0].geometry.location;
+      //           setMarkerLocation(response.results[0].geometry.location);
+      //       },
+      //       (error) => {
+      //         console.error(error);
+      //       }
+      //     );
+      // }
 
     return (
-    <div style={{width:"100%",height:1000}}>
-        {/* <Autocomplete onPlaceChanged={()=>{setMarkerLocation()}} >
-            <input type="text" className="input" placeholder='מיקום' ref={originRef}/>
-        </Autocomplete> */}
-        <button onClick={() => {
-              map.panTo(directionsResponse)
-              map.setZoom(15)
-            }}>Locate</button>
+      <div>
+      { !isLoaded ? <label>Loading...</label> : <div style={{width:"100%",height:1000}}>
+          {/* <Autocomplete onPlaceChanged={()=>{handleSetMarkerLocation()}} >
+              <input type="text" className="input" placeholder='מיקום' ref={originRef}/>
+          </Autocomplete> */}
+          <button onClick={() => {
+                map.panTo(markerLocation)
+                map.setZoom(15)
+              }}>Locate</button>
 
-            <GoogleMap
-            center={directionsResponse}
-            zoom={15}
-            mapContainerStyle={{ width: '100%', height: '100%', }}
-            options={{
-                zoomControl: false,
-                streetViewControl: false,
-                mapTypeControl: false,
-                fullscreenControl: false,
-            }}
-            onLoad={map => setMap(map)}
-            >
-                <Marker position={directionsResponse}/>
-                { // pin 10 first locations in the list (green) - https://www.freecodecamp.org/news/how-to-change-javascript-google-map-marker-color-8a72131d1207/
-                    props.donations.map((d,i)=>(
-                        (i<10 && d?.location?.coordinates.lat !== directionsResponse.lat) && d?.location?.coordinates.lng !== directionsResponse.lng &&
-                        <Marker position={d.location.coordinates} icon={ {url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"} }/>
-                    ))
-                }
-            </GoogleMap>
+              <GoogleMap
+              center={markerLocation}
+              zoom={15}
+              mapContainerStyle={{ width: '100%', height: '100%', }}
+              options={{
+                  zoomControl: false,
+                  streetViewControl: false,
+                  mapTypeControl: false,
+                  fullscreenControl: false,
+              }}
+              onLoad={map => setMap(map)}
+              >
+                  <Marker position={markerLocation}/>
+                  { // pin 10 first locations in the list (green) - https://www.freecodecamp.org/news/how-to-change-javascript-google-map-marker-color-8a72131d1207/
+                      props.donations.map((d,i)=>(
+                          (i<10 && d?.location?.coordinates.lat !== markerLocation.lat) && d?.location?.coordinates.lng !== markerLocation.lng &&
+                          <Marker position={d.location.coordinates} icon={ {url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"} }/>
+                      ))
+                  }
+              </GoogleMap>
+      </div>}
     </div>
     )
 }

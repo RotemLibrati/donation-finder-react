@@ -14,10 +14,10 @@ const App = () => {
       <main>
         <Switch>
           <Route path="/" exact>
-            <AddNewDonationPlace />
-          </Route>
-          <Route path="/donation/search" exact>
             <SearchDonation />
+          </Route>
+          <Route path="/donation/addDonation" exact>
+            <AddNewDonationPlace />
           </Route>
           <Redirect to="/" />
         </Switch>
