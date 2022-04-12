@@ -24,10 +24,12 @@ Geocode.setLanguage("heb");
 const SearchDonation = () => {
     const [donations, setDonations] = useState('')
     const [donationsToView, setDonationsToView] = useState('')
+    const [clickedIndex, setClickedIndex] = useState(-1)
 
     const [chosenSearchDonation, setChosenSearchDonation] = useState('Empty')
     const [filterBy, setFliterBy] = useState('typeDonation')
     const [filterByToShow, setFliterByToShow] = useState('סוג תרומה')
+
     const [filterOptions, setFilterOptions] = useState([
         { value: 'typeDonation', label: 'סוג תרומה' ,checked: true},
         { value: 'address', label: 'כתובת' ,checked: false},
@@ -105,9 +107,9 @@ const SearchDonation = () => {
     const renderDonationList = () => (
         (
         <div style={{marginTop:10}}>
-           {donationsToView.map((donation) => {
+           {donationsToView.map((donation,i) => {
                 return (
-                    <DonationListItem donation={donation} onClick={()=>{setChosenSearchDonation(donation)}}/>
+                    <DonationListItem donation={donation} onClick={()=>{setChosenSearchDonation(donation); setClickedIndex(i) }} clickedIndex={clickedIndex} curIndex={i}/>
                 )
             })}
         </div>
@@ -129,20 +131,13 @@ const SearchDonation = () => {
                 userChosenLocation? userChosenLocation : userCurLocation,
                 { latitude: d.location.coordinates.lat, longitude: d.location.coordinates.lng },
             )
-            // console.log({
-            //     creator: d.creator,
-            //     description: d.description,
-            //     typeDonation: d.typeDonation,
-            //     location: d.location,
-            //     distance: {meter: dist, kilometers: (dist/100).toLocaleString()}
-            // })
             return {
                 creator: d.creator,
                 description: d.description,
                 typeDonation: d.typeDonation,
                 location: d.location,
                 distance: {meter: dist, kilometers: (dist/10000).toLocaleString()},
-                isByUserLocation: userChosenLocation == '' ? true : false
+                isByUserLocation: userChosenLocation == '' ? true : false,
             }
         })
     }
