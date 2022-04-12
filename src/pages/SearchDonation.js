@@ -86,14 +86,14 @@ const SearchDonation = () => {
                     
                     {filterBy === 'address' ?
                         <Autocomplete onPlaceChanged={()=>{filterByFunc(searchInputeRef.current.value,filterBy)}}>
-                        <input value={searchInputeRef?.current?.value} type="text" placeholder={"הכנס " + filterByToShow}  style={{width:"80%", marginTop: "5%", marginLeft:"10%",textAlign:'center'}}  ref={searchInputeRef}
+                        <input value={searchInputeRef?.current?.value} type="text" placeholder={"הכנס " + filterByToShow}  style={{width:"80%", marginTop: "5%", marginLeft:"10%",textAlign:'center',textAnchor:'end', height:30, borderRadius:10,}}  ref={searchInputeRef}
                             onChange={(event)=>{filterByFunc(event.target.value,filterBy)}}/>
                         </Autocomplete> 
-                        : <input value={searchInputeRef?.current?.value} type="text" placeholder={"הכנס " + filterByToShow}  style={{width:"80%", marginTop: "5%", marginLeft:"10%",textAlign:'center'}}  ref={searchInputeRef}
+                        : <input value={searchInputeRef?.current?.value} type="text" placeholder={"הכנס " + filterByToShow}  style={{width:"80%", marginTop: "5%", marginLeft:"10%",textAlign:'center',textAnchor:'end', height:30, borderRadius:10}}  ref={searchInputeRef}
                             onChange={(event)=>{filterByFunc(event.target.value,filterBy)}}/>
                     }
                 
-                <div style={{display:'flex', flexDirection:'row-reverse', marginTop:5}}>
+                <div style={{ display:'flex', flexDirection:'row-reverse', marginTop:15,marginBottom:20,marginLeft:15,marginRight:15, justifyContent:'space-around'}}>
                     { filterOptions.map((o,i) =>(
                         <div>{o.label}
                             <input
