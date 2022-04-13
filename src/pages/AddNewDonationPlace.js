@@ -102,7 +102,7 @@ const AddNewDonationPlace = () => {
           SecretKey="6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"
           onChange={onReCAPTCHAChange}
           className='recapcha'
-        />,
+        />
         </form>
       </div>
     </React.Fragment>
