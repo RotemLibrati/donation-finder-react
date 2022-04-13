@@ -5,3 +5,11 @@
   position: absolute;
   transform: scale(0);
 }
+
+.devider {
+  border: 1px ridge   rgb(173, 173, 173) ;
+  width:96%;
+  align-self: center;
+  background-color: black;
+  margin-left: 2%;
+}
