@@ -11,6 +11,18 @@ import {
   import { useRef, useState } from 'react'
   import Geocode from "react-geocode";
 
+  const markerIcons = {
+    "אוכל": {url: "http://maps.google.com/mapfiles/kml/pal2/icon41.png",},
+    "כסף": {url: "http://maps.google.com/mapfiles/kml/pal2/icon50.png",},
+    "צדקה": {url: "http://maps.google.com/mapfiles/kml/pal2/icon50.png",},
+    "מוצרי מזון": {url: "http://maps.google.com/mapfiles/kml/pal3/icon26.png",},
+    "לינה": {url: "http://maps.google.com/mapfiles/kml/pal2/icon28.png",},
+    "בגדים": {url: "http://maps.google.com/mapfiles/ms/icons/shopping.png",},
+    "כסף": {url: "http://maps.google.com/mapfiles/ms/icons/dollar.png",},
+    "צדקה": {url: "http://maps.google.com/mapfiles/ms/icons/dollar.png",},
+    "מוצרי אלקטרוניקה": {url: "http://maps.google.com/mapfiles/ms/icons/electronics.png",},
+    "נגישות": {url: "http://maps.google.com/mapfiles/ms/icons/wheel_chair_accessible.png"}
+  }
   var center = { lat: 48.8584, lng: 2.2945 }
   Geocode.setApiKey(`${API.api_key_google_maps}`)
 
@@ -84,11 +96,12 @@ function Map(props) {
               }}
               onLoad={map => setMap(map)}
               >
-                  <Marker position={markerLocation}/>
+                  <Marker position={markerLocation} title="מיקום נוכחי מבוקש"  />
                   { // pin 10 first locations in the list (green) - https://www.freecodecamp.org/news/how-to-change-javascript-google-map-marker-color-8a72131d1207/
                       props.donations.map((d,i)=>(
                           (i<10 && d?.location?.coordinates.lat !== markerLocation.lat) && d?.location?.coordinates.lng !== markerLocation.lng &&
-                          <Marker position={d.location.coordinates} icon={ {url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"} }/>
+                          <Marker position={d.location.coordinates} title={d.typeDonation} 
+                            icon={  d.typeDonation in markerIcons ? markerIcons[d.typeDonation] : {url: "http://maps.google.com/mapfiles/ms/icons/info.png"} }/>
                       ))
                   }
               </GoogleMap>
