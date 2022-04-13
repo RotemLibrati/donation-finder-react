@@ -8,6 +8,7 @@ import {
     Autocomplete,
   } from '@react-google-maps/api'
 import Geocode from "react-geocode";
+import ReCAPTCHA from "react-google-recaptcha";
 
 
 Geocode.setApiKey(`${API.api_key_google_maps}`)
@@ -74,6 +75,9 @@ const AddNewDonationPlace = () => {
   if(!isLoaded){
       return <label>Loading...</label>
   } 
+  function onReCAPTCHAChange(value) {
+    console.log("Captcha value:", value);
+  }
   
   return (
     //   <div style={ {display: 'grid', width:"15%",} } >
@@ -92,7 +96,13 @@ const AddNewDonationPlace = () => {
           <Autocomplete>
             <input type="text" className="input" placeholder='מיקום' ref={chosenLoactionRef}/>
         </Autocomplete>
-          <button type="submit" className="btn">הוסף</button>
+        <button type="submit" className="btn">הוסף</button>
+        <ReCAPTCHA
+          sitekey= "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKh"
+          SecretKey="6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"
+          onChange={onReCAPTCHAChange}
+          className='recapcha'
+        />,
         </form>
       </div>
     </React.Fragment>
