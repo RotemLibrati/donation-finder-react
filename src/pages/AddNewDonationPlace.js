@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import axios from 'axios';
 import './AddNewDonationPlace.css';
-import API from '../ApiService'
+import API from '../ApiService';
 
 import {
     useJsApiLoader,

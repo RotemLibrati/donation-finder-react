@@ -3,7 +3,7 @@ import Map from "../components/GoogleMapComponent/Map";
 import axios from 'axios';
 import Select from 'react-select'
 import DonationListItem from "../components/DonationListItem";
-import API from '../ApiService'
+import API from "../ApiService";
 
 import {
     useJsApiLoader,
