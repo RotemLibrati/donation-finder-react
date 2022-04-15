@@ -18,7 +18,7 @@
     width: 431px;
     height: 63px;
     background: #FFFFFF 0% 0% no-repeat padding-box;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     line-height: 1;
     box-sizing: border-box;
     outline: none;
