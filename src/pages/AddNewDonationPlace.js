@@ -48,7 +48,8 @@ const AddNewDonationPlace = () => {
           }
         })
           .then(function (response) {
-            console.log(response)
+            console.log(response);
+            window.location.href= '/';
           })
           .catch(function (error) {
             console.log(error);
@@ -96,7 +97,7 @@ const AddNewDonationPlace = () => {
     <React.Fragment>
       <div className='form__new_donation'>
         <label className='label'>הוסף תרומה חדשה</label>
-        <form className="form" onSubmit={addDonationPlace}>
+        <form className="form" onSubmit={addDonationPlace} >
           <input type="text" className="input" placeholder='שם היוצר' onChange={handleChangeCreator} /> <br />
           <input type="text" className="input" placeholder='תיאור' onChange={handleChangeDescription} /> <br />
           <Select
@@ -110,7 +111,8 @@ const AddNewDonationPlace = () => {
           <Autocomplete>
             <input type="text" className="input" placeholder='מיקום' ref={chosenLoactionRef} />
           </Autocomplete>
-          <button type="submit" className="btn">הוסף</button>
+            <button type="submit" className="btn">הוסף</button>
+
           <ReCAPTCHA
             sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKh"
             SecretKey="6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"

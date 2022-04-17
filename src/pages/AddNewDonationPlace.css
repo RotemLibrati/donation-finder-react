@@ -27,6 +27,7 @@
     color: #363636;
     margin-bottom: 0.2rem;
     text-align: right;
+    direction: rtl;
 }
 
 .btn {
