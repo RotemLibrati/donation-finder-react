@@ -160,7 +160,7 @@ const AddNewDonationPlace = () => {
           />
           <div>
             <Autocomplete>
-              <input type="text" className="input" placeholder='מיקום' ref={chosenLoactionRef} />
+              <input type="text" className="input" placeholder='מיקום' ref={chosenLoactionRef} disabled={switchToggle === false ? false : true} />
             </Autocomplete>
             <Switch onChange={handleChangeSwitch} /><label>השתמש במיקומך נוכחי</label>
           </div>
