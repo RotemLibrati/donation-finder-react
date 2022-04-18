@@ -6,14 +6,19 @@ import { useJsApiLoader, Autocomplete } from '@react-google-maps/api'
 import Geocode from "react-geocode";
 import ReCAPTCHA from "react-google-recaptcha";
 import Select from 'react-select';
+import Switch from '@mui/material/Switch';
 
 Geocode.setApiKey(`${API.api_key_google_maps}`)
 Geocode.setLanguage("heb");
 
 const AddNewDonationPlace = () => {
+  const [switchToggle, setSwitchToggle] = useState(false);
   const [creator, setCreator] = useState("");
   const [description, setDescription] = useState("");
   const [typeDonation, setTypeDonation] = useState("");
+  const [loc, setLoc] = useState();
+
+  
   const chosenLoactionRef = useRef()
   const [libraries] = useState(['places']);
   const { isLoaded } = useJsApiLoader({
@@ -30,36 +35,81 @@ const AddNewDonationPlace = () => {
   const handleChangeDescription = event => {
     setDescription(event.target.value);
   };
+  const handleChangeSwitch = (eve, val) => {
+    setSwitchToggle(val);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        }
+        setLoc(pos);
+      });
+      console.log(loc);
+
+  }
   const addDonationPlace = async (event) => {
     await event.preventDefault();
-    Geocode.fromAddress(chosenLoactionRef.current.value).then(
-      async (response) => {
-        await axios({
-          method: 'post',
-          url: `http://localhost:5000/api/donation/`,
-          headers: {},
-          data: {
-            donation: {
-              creator,
-              description,
-              typeDonation: typeDonation.value,
-              location: { "address": chosenLoactionRef.current.value, "coordinates": response.results[0].geometry.location }
+    if (!switchToggle) {
+      Geocode.fromAddress(chosenLoactionRef.current.value).then(
+        async (response) => {
+          await axios({
+            method: 'post',
+            url: `http://localhost:5000/api/donation/`,
+            headers: {},
+            data: {
+              donation: {
+                creator,
+                description,
+                typeDonation: typeDonation.value,
+                location: { "address": chosenLoactionRef.current.value, "coordinates": response.results[0].geometry.location }
+              }
             }
-          }
-        })
-          .then(function (response) {
-            console.log(response);
-            window.location.href= '/';
           })
-          .catch(function (error) {
-            console.log(error);
-          });
-      },
-      (error) => {
-        alert("Sorry, location not found !");
-        console.error("Location Not Found!");
-      }
-    );
+            .then(function (response) {
+              console.log(response);
+              window.location.href = '/';
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
+        (error) => {
+          alert("Sorry, location not found !");
+          console.error("Location Not Found!");
+        }
+      );
+    } else {
+      Geocode.fromLatLng(loc.lat, loc.lng).then(
+        async (response) => {
+          await axios({
+            method: 'post',
+            url: `http://localhost:5000/api/donation/`,
+            headers: {},
+            data: {
+              donation: {
+                creator,
+                description,
+                typeDonation: typeDonation.value,
+                location: { "address": response.results[0].formatted_address, "coordinates": loc }
+              }
+            }
+          })
+            .then(function (response) {
+              console.log(response);
+              window.location.href = '/';
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
+        (error) => {
+          alert("Sorry, location not found !");
+          console.error("Location Not Found!");
+        }
+      );
+    }
+
   };
 
   if (!isLoaded) {
@@ -108,11 +158,13 @@ const AddNewDonationPlace = () => {
             onChange={select => setTypeDonation(select)}
             options={donationOptions}
           />
-          <Autocomplete>
-            <input type="text" className="input" placeholder='מיקום' ref={chosenLoactionRef} />
-          </Autocomplete>
-            <button type="submit" className="btn">הוסף</button>
-
+          <div>
+            <Autocomplete>
+              <input type="text" className="input" placeholder='מיקום' ref={chosenLoactionRef} />
+            </Autocomplete>
+            <Switch onChange={handleChangeSwitch} /><label>השתמש במיקומך נוכחי</label>
+          </div>
+          <button type="submit" className="btn">הוסף</button>
           <ReCAPTCHA
             sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKh"
             SecretKey="6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"
