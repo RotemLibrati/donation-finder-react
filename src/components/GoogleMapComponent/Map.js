@@ -12,14 +12,11 @@ import {
   import Geocode from "react-geocode";
 
   const markerIcons = {
-    "אוכל": {url: "http://maps.google.com/mapfiles/kml/pal2/icon41.png",},
-    "כסף": {url: "http://maps.google.com/mapfiles/kml/pal2/icon50.png",},
-    "צדקה": {url: "http://maps.google.com/mapfiles/kml/pal2/icon50.png",},
+    "מזון": {url: "http://maps.google.com/mapfiles/kml/pal2/icon41.png",},
     "מוצרי מזון": {url: "http://maps.google.com/mapfiles/kml/pal3/icon26.png",},
     "לינה": {url: "http://maps.google.com/mapfiles/kml/pal2/icon28.png",},
-    "בגדים": {url: "http://maps.google.com/mapfiles/ms/icons/shopping.png",},
+    "ביגוד": {url: "http://maps.google.com/mapfiles/ms/icons/shopping.png",},
     "כסף": {url: "http://maps.google.com/mapfiles/ms/icons/dollar.png",},
-    "צדקה": {url: "http://maps.google.com/mapfiles/ms/icons/dollar.png",},
     "מוצרי אלקטרוניקה": {url: "http://maps.google.com/mapfiles/ms/icons/electronics.png",},
     "נגישות": {url: "http://maps.google.com/mapfiles/ms/icons/wheel_chair_accessible.png"}
   }

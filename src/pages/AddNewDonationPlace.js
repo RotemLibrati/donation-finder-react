@@ -26,8 +26,15 @@ const AddNewDonationPlace = () => {
     libraries
   });
   const donationOptions = [
-    { value: 'מזון', label: 'מזון' },
+    { value: 'מזון', label: 'מזון', },
     { value: 'ביגוד', label: 'ביגוד' },
+    { value: 'כסף', label: 'כסף' },
+    { value: 'ביגוד', label: 'ביגוד' },
+    { value: 'צדקה', label: 'צדקה' },
+    { value: 'מוצרי מזון', label: 'מוצרי מזון' },
+    { value: 'לינה', label: 'לינה' },
+    { value: 'מוצרי אלקטרוניקה', label: 'מוצרי אלקטרוניקה' },
+    { value: 'נגישות', label: 'נגישות' },
   ];
   const handleChangeCreator = event => {
     setCreator(event.target.value);
