@@ -10,7 +10,8 @@ import {
   } from '@react-google-maps/api'
   import { useRef, useState } from 'react'
   import Geocode from "react-geocode";
-
+  import Select from 'react-select';
+  import './Map.css'
   const markerIcons = {
     "מזון": {url: "http://maps.google.com/mapfiles/kml/pal2/icon41.png",},
     "מוצרי מזון": {url: "http://maps.google.com/mapfiles/kml/pal3/icon26.png",},
@@ -38,7 +39,15 @@ function Map(props) {
     const [markerLocation, setMarkerLocation] = useState({ lat: 31.2492119, lng: 34.7842072 })
     const [distance, setDistance] = useState('')
     const [duration, setDuration] = useState('')
-                    
+          
+    const [visibility, setVisibility] = useState(false)
+    const [mapType, setMapType] = useState("roadmap")
+
+    const mapTypeOptions = [
+      { value: 'roadmap', label: 'ברירת מחדל', },
+      { value: 'hybrid', label: 'תמונת לוויין' },
+    ];
+
     useEffect(() => {
       if(props?.chosenSearchDonation != 'Empty')  
         setMarkerLocation(props.chosenSearchDonation.location.coordinates)
@@ -58,6 +67,15 @@ function Map(props) {
           }
     },[navigator])
     
+    const mapStyles =[
+        {
+            // featureType: "poi",
+            elementType: "labels",
+            stylers: [
+                  { visibility: visibility ? "on" : "off" }
+            ]
+        }
+    ];
       // const handleSetMarkerLocation = () => {
       //   Geocode.fromAddress(originRef.current.value).then(
       //       (response) => {
@@ -74,13 +92,27 @@ function Map(props) {
       <div>
       { !isLoaded ? <label>Loading...</label> : <div style={{width:"100%",height:1000}}>
           {/* <Autocomplete onPlaceChanged={()=>{handleSetMarkerLocation()}} >
-              <input type="text" className="input" placeholder='מיקום' ref={originRef}/>
+              <input type="text" className="input" placeholder='מיקום' ref={originRef}/>              
           </Autocomplete> */}
-          <button onClick={() => {
-                map.panTo(markerLocation)
-                map.setZoom(15)
-              }}>Locate</button>
-
+          <div className='buttons_container'>
+            <button className='button' onClick={() => {
+                  map.panTo(markerLocation)
+                  map.setZoom(15)
+                }}>היכן אני ?</button>
+            
+            <button className='button' onClick={() => {
+                  setVisibility(!visibility)
+                  // alert(mapStyles[0].stylers[0]["visibility"])
+                }}>הצג/הסתר מקומות באיזור</button>
+                <Select
+                  placeholder='בחר סוג מפה'
+                  // styles={customStyles}
+                  className='select'
+                  value={mapType}
+                  onChange={select => setMapType(select)}
+                  options={mapTypeOptions}
+                />
+              </div>
               <GoogleMap
               center={markerLocation}
               zoom={15}
@@ -90,6 +122,8 @@ function Map(props) {
                   streetViewControl: false,
                   mapTypeControl: false,
                   fullscreenControl: false,
+                  mapTypeId: mapType.value,
+                  styles: mapStyles
               }}
               onLoad={map => setMap(map)}
               >

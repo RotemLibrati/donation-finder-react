@@ -1,0 +1,38 @@
+.select {
+    width: 156px;
+    height: 63px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    /* border-radius: 10px; */
+    line-height: 1;
+    box-sizing: border-box;
+    outline: none;
+    font: normal normal normal 22px/32px Heebo;
+    letter-spacing: 0px;
+    color: #363636;
+    margin-bottom: 0.2rem;
+    text-align: right;
+    direction: rtl;
+}
+
+.buttons_container {
+    display: flex;
+    align-self: 'center';
+    flex-direction:row-reverse;
+    justify-content: flex-start;
+}
+
+.button {
+    /* height: 63px; */
+    background: lightgrey 0% 0% no-repeat padding-box; 
+    border-radius: 10px;
+    /* line-height: 1; */
+    /* box-sizing: border-box;
+    outline: none; */
+    font: normal normal normal 20px/32px Heebo;
+    /* letter-spacing: 0px; */
+    color: black;
+    margin-bottom: 1.3rem;
+    text-align: right;
+    direction: rtl;
+    margin-left: 0.5rem;
+}
