@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import API from '../../ApiService';
+import donationOptions from '../../globalVariables';
 
 import {
     useJsApiLoader,
@@ -12,15 +13,7 @@ import {
   import Geocode from "react-geocode";
   import Select from 'react-select';
   import './Map.css'
-  const markerIcons = {
-    "מזון": {url: "http://maps.google.com/mapfiles/kml/pal2/icon41.png",},
-    "מוצרי מזון": {url: "http://maps.google.com/mapfiles/kml/pal3/icon26.png",},
-    "לינה": {url: "http://maps.google.com/mapfiles/kml/pal2/icon28.png",},
-    "ביגוד": {url: "http://maps.google.com/mapfiles/ms/icons/shopping.png",},
-    "כסף": {url: "http://maps.google.com/mapfiles/ms/icons/dollar.png",},
-    "מוצרי אלקטרוניקה": {url: "http://maps.google.com/mapfiles/ms/icons/electronics.png",},
-    "נגישות": {url: "http://maps.google.com/mapfiles/ms/icons/wheel_chair_accessible.png"}
-  }
+
   var center = { lat: 48.8584, lng: 2.2945 }
   Geocode.setApiKey(`${API.api_key_google_maps}`)
 
@@ -41,7 +34,7 @@ function Map(props) {
     const [duration, setDuration] = useState('')
           
     const [visibility, setVisibility] = useState(false)
-    const [mapType, setMapType] = useState("roadmap")
+    const [mapType, setMapType] = useState({ value: 'roadmap', label: 'ברירת מחדל', })
 
     const mapTypeOptions = [
       { value: 'roadmap', label: 'ברירת מחדל', },
@@ -132,7 +125,7 @@ function Map(props) {
                       props.donations.map((d,i)=>(
                           (i<10 && d?.location?.coordinates.lat !== markerLocation.lat) && d?.location?.coordinates.lng !== markerLocation.lng &&
                           <Marker position={d.location.coordinates} title={d.typeDonation} 
-                            icon={  d.typeDonation in markerIcons ? markerIcons[d.typeDonation] : {url: "http://maps.google.com/mapfiles/ms/icons/info.png"} }/>
+                            icon={  d.typeDonation in donationOptions ? donationOptions[d.typeDonation] : {url: "http://maps.google.com/mapfiles/ms/icons/info.png"} }/>
                       ))
                   }
               </GoogleMap>

@@ -10,6 +10,9 @@ import {
 } from '@react-google-maps/api'
 import Geocode from "react-geocode";
 import { getDistance } from 'geolib';
+import Select from 'react-select';
+import donationOptions from "../globalVariables";
+import TypeSelectorFilterListViwer from "../components/TypeSelectorFilterListViwer/TypeSelectorFilterListViwer";
 
 
 Geocode.setApiKey(`${API.api_key_google_maps}`)
@@ -33,6 +36,7 @@ const SearchDonation = () => {
         { value: 'description', label: 'תיאור', checked: false },
         { value: 'creator', label: 'יוצר', checked: false },
     ]);
+    const [typeDonationList, setTypeDonationList] = useState([])
     const searchInputeRef = useRef();
     const originRef = useRef();
     const [libraries] = useState(['places']);
@@ -73,6 +77,10 @@ const SearchDonation = () => {
         }
     }, [userCurLocation, userChosenLocation]);
 
+    useEffect(() => {
+        filterByFunc(null, "typeDonation")
+    }, [typeDonationList]);
+
     const handleOriginChosen = () => {
         Geocode.fromAddress(originRef.current.value).then(
             async (response) => {
@@ -109,15 +117,29 @@ const SearchDonation = () => {
     const handleCheckBoxChange = (o, i) => {
         setFliterBy(o.value);
         setFliterByToShow(o.label);
-        filterByFunc(searchInputeRef.current.value, o.value);
+        filterByFunc( o.value !== 'typeDonation' && searchInputeRef?.current?.value !== undefined ? searchInputeRef?.current?.value: '', o.value);
         filterOptions.map((o, j) => {
             i === j ? filterOptions[j].checked = true : filterOptions[j].checked = false;
         })
     };
     const filterByFunc = (val, filterBy) => {
-        setDonationsToView(sortByDistance(donations.filter((donation) => {
-            return filterBy === "address" ? donation.location.address.includes(val) : donation[filterBy].includes(val)
-        })));
+        if(filterBy !== "typeDonation")
+            setDonationsToView(sortByDistance(donations.filter((donation) => {
+                return filterBy === "address" ? donation.location.address.includes(val) : donation[filterBy].includes(val)
+            })));
+        else{
+            if(typeDonationList.length !== 0)
+                setDonationsToView(sortByDistance(donations.filter((donation) => {
+                    let isIn = false
+                    for(let i in typeDonationList){
+                        console.log(typeDonationList[i])
+                        isIn = donation[filterBy].includes(typeDonationList[i].label)
+                        if(isIn) break;
+                    }
+                    return isIn
+                })))
+            else if(donations) setDonationsToView(sortByDistance(donations))
+        }
     };
     const calculateRoute = (curDonations) => {
         return curDonations.map((d) => {
@@ -208,11 +230,29 @@ const SearchDonation = () => {
         originRef.current.value = ''
         searchInputeRef.current.value = ''
     };
+    
+    const renderTypeDonationSelector = () => {
+        return (
+            <div>
+            <Select
+                placeholder= 'בחר סוג תרומה'
+                // styles={customStyles}
+                className='address__input'
+                value={typeDonationList}
+                onChange={select => setTypeDonationList(curTypeDonationList => [...curTypeDonationList, select])}
+                options={donationOptions}
+                ref={searchInputeRef}
+            />
+            { typeDonationList && <TypeSelectorFilterListViwer list={typeDonationList} onRemoveClick={(toRemove)=>{ setTypeDonationList(curTypeDonationList => curTypeDonationList.filter((item) => { return item !== toRemove })) }}/> }
+            </div>
+        )
+    }
+
     return (
         <div>
             {!isLoaded ? <label>Loading...</label> :
-                <div>
-                    <h2>Search Donation</h2>
+                <div style={{ textAlign: 'right' }}>
+                    <h2>חיפוש תרומות</h2>
                     <div className="container">
                         <div className="searching">
                             {filterBy === 'address' ?
@@ -234,12 +274,12 @@ const SearchDonation = () => {
                                             onChange={(event) => { filterByFunc(event.target.value, filterBy) }} />
                                     </Autocomplete>
                                 </div>
-                                : <input className="address_input"
+                                : (filterBy ==='typeDonation' ? renderTypeDonationSelector() : <input className="address_input"
                                     value={searchInputeRef?.current?.value}
                                     type="text"
                                     placeholder={"הכנס " + filterByToShow}
                                     ref={searchInputeRef}
-                                    onChange={(event) => { filterByFunc(event.target.value, filterBy) }} />
+                                    onChange={(event) => { filterByFunc(event.target.value, filterBy) }} />)
                             }
                             <div className="checkbox__input">
                                 {filterOptions.map((o, i) => (
