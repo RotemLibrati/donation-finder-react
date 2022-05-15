@@ -7,7 +7,7 @@ import Geocode from "react-geocode";
 import ReCAPTCHA from "react-google-recaptcha";
 import Select from 'react-select';
 import Switch from '@mui/material/Switch';
-
+import donationOptions from '../globalVariables'
 Geocode.setApiKey(`${API.api_key_google_maps}`)
 Geocode.setLanguage("heb");
 
@@ -25,10 +25,7 @@ const AddNewDonationPlace = () => {
     googleMapsApiKey: `${API.api_key_google_maps}`,
     libraries
   });
-  const donationOptions = [
-    { value: 'מזון', label: 'מזון' },
-    { value: 'ביגוד', label: 'ביגוד' },
-  ];
+
   const handleChangeCreator = event => {
     setCreator(event.target.value);
   };
