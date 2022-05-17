@@ -143,7 +143,7 @@ function Map(props) {
               onLoad={map => setMap(map)}
               >
                   <Marker position={markerLocation} title="מיקום נוכחי מבוקש" onClick={(d) => {setShowMarkerInfoView(-1)}}>
-                   > {showMarkerInfoView === -1 &&  props && getMarkerInfoView(props?.chosenSearchDonation)} </Marker>
+                    {showMarkerInfoView === -1 &&  props && getMarkerInfoView(props?.chosenSearchDonation)} </Marker>
                   { // pin 10 first locations in the list (green) - https://www.freecodecamp.org/news/how-to-change-javascript-google-map-marker-color-8a72131d1207/
                       props.donations.map((d,i)=>(
                           (i<10 && d?.location?.coordinates.lat !== markerLocation.lat) && d?.location?.coordinates.lng !== markerLocation.lng &&
