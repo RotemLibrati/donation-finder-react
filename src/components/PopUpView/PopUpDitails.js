@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
-import popupStyles from "./PopUpView.css";
+import popupStyles from "./PopUpDitails.css";
 import PropTypes from "prop-types";
+import React from 'react';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css'
 
 const PopUpDitails = (props) => {
   const [show, setShow] = useState(false);

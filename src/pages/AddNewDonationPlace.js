@@ -7,7 +7,7 @@ import Geocode from "react-geocode";
 import ReCAPTCHA from "react-google-recaptcha";
 import Select from 'react-select';
 import Switch from '@mui/material/Switch';
-import donationOptions from '../globalVariables'
+import {donationOptions} from '../globalVariables'
 Geocode.setApiKey(`${API.api_key_google_maps}`)
 Geocode.setLanguage("heb");
 
@@ -15,6 +15,11 @@ const AddNewDonationPlace = () => {
   const [switchToggle, setSwitchToggle] = useState(false);
   const [creator, setCreator] = useState("");
   const [description, setDescription] = useState("");
+
+  const [website, setWebsite] = useState("");
+  const [phone, setphone] = useState("");
+  const [organization, setOrganization] = useState("");
+
   const [typeDonation, setTypeDonation] = useState("");
   const [loc, setLoc] = useState();
 
@@ -29,9 +34,23 @@ const AddNewDonationPlace = () => {
   const handleChangeCreator = event => {
     setCreator(event.target.value);
   };
+
   const handleChangeDescription = event => {
     setDescription(event.target.value);
   };
+
+  const handleChangeOrganization = event => {
+    setOrganization(event.target.value);
+  };
+
+  const handleChangePhone = event => {
+    setphone(event.target.value);
+  };
+
+  const handleChangeWebsite = event => {
+    setWebsite(event.target.value);
+  };
+
   const handleChangeSwitch = (eve, val) => {
     setSwitchToggle(val);
     navigator.geolocation.getCurrentPosition(
@@ -43,8 +62,8 @@ const AddNewDonationPlace = () => {
         setLoc(pos);
       });
       console.log(loc);
-
   }
+
   const addDonationPlace = async (event) => {
     await event.preventDefault();
     if (!switchToggle) {
@@ -59,7 +78,10 @@ const AddNewDonationPlace = () => {
                 creator,
                 description,
                 typeDonation: typeDonation.value,
-                location: { "address": chosenLoactionRef.current.value, "coordinates": response.results[0].geometry.location }
+                location: { "address": chosenLoactionRef.current.value, "coordinates": response.results[0].geometry.location },
+                website, 
+                organization, 
+                phone
               }
             }
           })
@@ -145,10 +167,13 @@ const AddNewDonationPlace = () => {
       <div className='form__new_donation'>
         <label className='label'>הוסף תרומה חדשה</label>
         <form className="form" onSubmit={addDonationPlace} >
-          <input type="text" className="input" placeholder='שם היוצר' onChange={handleChangeCreator} /> <br />
-          <input type="text" className="input" placeholder='תיאור' onChange={handleChangeDescription} /> <br />
+          <input type="text" className="input" placeholder='שם היוצר*' onChange={handleChangeCreator} /> <br />
+          <input type="text" className="input" placeholder='תיאור*' onChange={handleChangeDescription} /> <br />
+          <input type="text" className="input" placeholder='ארגון' onChange={handleChangeOrganization} /> <br />
+          <input type="text" className="input" placeholder='קישור לאתר' onChange={handleChangeWebsite} /> <br />
+          <input type="text" className="input" placeholder='מספר טלפון*' onChange={handleChangePhone} /> <br />
           <Select
-            placeholder='בחר סוג תרומה'
+            placeholder='בחר סוג תרומה*'
             styles={customStyles}
             className='input'
             value={typeDonation}
@@ -157,7 +182,7 @@ const AddNewDonationPlace = () => {
           />
           <div>
             <Autocomplete>
-              <input type="text" className="input" placeholder='מיקום' ref={chosenLoactionRef} disabled={switchToggle === false ? false : true} />
+              <input type="text" className="input" placeholder='מיקום*' ref={chosenLoactionRef} disabled={switchToggle === false ? false : true} />
             </Autocomplete>
             <Switch onChange={handleChangeSwitch} /><label>השתמש במיקומך נוכחי</label>
           </div>

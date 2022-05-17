@@ -36,3 +36,10 @@
     direction: rtl;
     margin-left: 0.5rem;
 }
+
+.MarkerInfoError {
+    text-align: right;
+    direction: rtl;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}

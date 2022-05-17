@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import API from '../../ApiService';
-import donationOptions from '../../globalVariables';
+import {donationIcons} from '../../globalVariables';
 
 import {
     useJsApiLoader,
@@ -8,11 +8,16 @@ import {
     Marker,
     Autocomplete,
     DirectionsRenderer,
+    InfoWindow,
   } from '@react-google-maps/api'
   import { useRef, useState } from 'react'
   import Geocode from "react-geocode";
   import Select from 'react-select';
   import './Map.css'
+
+  import PopUpDitails from '../PopUpView/PopUpDitails'
+import MarkerInfoView from './MarkerInfoView';
+import { Label } from '@mui/icons-material';
 
   var center = { lat: 48.8584, lng: 2.2945 }
   Geocode.setApiKey(`${API.api_key_google_maps}`)
@@ -35,6 +40,7 @@ function Map(props) {
           
     const [visibility, setVisibility] = useState(false)
     const [mapType, setMapType] = useState({ value: 'roadmap', label: 'ברירת מחדל', })
+    const [showMarkerInfoView, setShowMarkerInfoView] = useState(-2)
 
     const mapTypeOptions = [
       { value: 'roadmap', label: 'ברירת מחדל', },
@@ -44,7 +50,7 @@ function Map(props) {
     useEffect(() => {
       if(props?.chosenSearchDonation != 'Empty')  
         setMarkerLocation(props.chosenSearchDonation.location.coordinates)
-      else { setMarkerLocation(props.userLocation)}
+      else { setMarkerLocation(props.userLocation) }
     },[props])
 
     useEffect(()=>{
@@ -80,6 +86,22 @@ function Map(props) {
       //       }
       //     );
       // }
+
+      const getMarkerInfoView = (donation) => {
+        return (
+           
+          <InfoWindow onCloseClick={() => setShowMarkerInfoView(-2)}>
+              {donation !== 'Empty' ? 
+              <MarkerInfoView donation={donation}/> 
+              : 
+              <div className='MarkerInfoError'> 
+                <h2 className='title'>זהו מיקומך הנוכחי.</h2>
+                <h3>ראשית בחר מיקום תרומה.</h3>
+              </div>
+              }
+          </InfoWindow> 
+        )
+      }
 
     return (
       <div>
@@ -120,12 +142,18 @@ function Map(props) {
               }}
               onLoad={map => setMap(map)}
               >
-                  <Marker position={markerLocation} title="מיקום נוכחי מבוקש"  />
+                  <Marker position={markerLocation} title="מיקום נוכחי מבוקש" onClick={(d) => {setShowMarkerInfoView(-1)}}>
+                   > {showMarkerInfoView === -1 &&  props && getMarkerInfoView(props?.chosenSearchDonation)} </Marker>
                   { // pin 10 first locations in the list (green) - https://www.freecodecamp.org/news/how-to-change-javascript-google-map-marker-color-8a72131d1207/
                       props.donations.map((d,i)=>(
                           (i<10 && d?.location?.coordinates.lat !== markerLocation.lat) && d?.location?.coordinates.lng !== markerLocation.lng &&
+                        <>
                           <Marker position={d.location.coordinates} title={d.typeDonation} 
-                            icon={  d.typeDonation in donationOptions ? donationOptions[d.typeDonation] : {url: "http://maps.google.com/mapfiles/ms/icons/info.png"} }/>
+                            icon={ d.typeDonation in donationIcons ? donationIcons[d.typeDonation] : {url: "http://maps.google.com/mapfiles/ms/icons/info.png"} }
+                            onClick={(d) => {setShowMarkerInfoView(i)}}>
+                              {i===showMarkerInfoView && getMarkerInfoView(d) }
+                            </Marker>
+                        </>
                       ))
                   }
               </GoogleMap>

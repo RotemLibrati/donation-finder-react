@@ -11,8 +11,9 @@ import {
 import Geocode from "react-geocode";
 import { getDistance } from 'geolib';
 import Select from 'react-select';
-import donationOptions from "../globalVariables";
+import {donationOptions} from "../globalVariables";
 import TypeSelectorFilterListViwer from "../components/TypeSelectorFilterListViwer/TypeSelectorFilterListViwer";
+import PopUpDitails from "../components/PopUpView/PopUpDitails";
 
 
 Geocode.setApiKey(`${API.api_key_google_maps}`)
@@ -101,14 +102,18 @@ const SearchDonation = () => {
                 console.log(error);
             });
     };
-
+    const onMarkerClick = (place) => {
+        <PopUpDitails title="ddd"
+        show={true}
+        onClose={(x) => {}} />
+      }
     const renderDonationList = () => ((
         <div style={{ marginTop: 10 }}>
             {donationsToView.map((donation, i) => {
                 return (
                     <DonationListItem
                         donation={donation}
-                        onClick={() => { setChosenSearchDonation(donation); setClickedIndex(i) }}
+                        onClick={() => { setChosenSearchDonation(donation); setClickedIndex(i);onMarkerClick(i) }}
                         clickedIndex={clickedIndex}
                         curIndex={i} />
                 )
@@ -148,10 +153,7 @@ const SearchDonation = () => {
                 { latitude: d.location.coordinates.lat, longitude: d.location.coordinates.lng },
             )
             return {
-                creator: d.creator,
-                description: d.description,
-                typeDonation: d.typeDonation,
-                location: d.location,
+                ...d,
                 distance: { meter: dist, kilometers: (dist / 10000).toLocaleString() },
                 isByUserLocation: userChosenLocation === '' ? true : false,
             }

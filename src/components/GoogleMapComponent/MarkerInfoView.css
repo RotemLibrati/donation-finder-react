@@ -1,0 +1,22 @@
+.InfoViewContainer {
+    text-align: right;
+    direction: rtl;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+.info_title {
+    font-size: 20px;
+    font-weight: bold;
+}
+.info_param {
+    font-size: 18px;
+}
+.info_container_subDetails {
+    text-align: right;
+    align-self: center;
+    margin-bottom: 15px;
+}
+.info_sub {
+    display: flex;
+    flex-direction: row-reverse;
+}
