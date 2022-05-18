@@ -8,6 +8,9 @@ import ReCAPTCHA from "react-google-recaptcha";
 import Select from 'react-select';
 import Switch from '@mui/material/Switch';
 import {donationOptions} from '../globalVariables'
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+
 Geocode.setApiKey(`${API.api_key_google_maps}`)
 Geocode.setLanguage("heb");
 
@@ -43,8 +46,8 @@ const AddNewDonationPlace = () => {
     setOrganization(event.target.value);
   };
 
-  const handleChangePhone = event => {
-    setphone(event.target.value);
+  const handleChangePhone = newPhone => {
+    setphone("+" + newPhone);
   };
 
   const handleChangeWebsite = event => {
@@ -171,7 +174,18 @@ const AddNewDonationPlace = () => {
           <input type="text" className="input" placeholder='תיאור*' onChange={handleChangeDescription} /> <br />
           <input type="text" className="input" placeholder='ארגון' onChange={handleChangeOrganization} /> <br />
           <input type="text" className="input" placeholder='קישור לאתר' onChange={handleChangeWebsite} /> <br />
-          <input type="text" className="input" placeholder='מספר טלפון*' onChange={handleChangePhone} /> <br />
+
+          <PhoneInput
+            containerStyle={phoneInputStyle.containerStyle}
+            buttonStyle={phoneInputStyle.buttonStyle}
+            inputStyle={phoneInputStyle.inputStyle}
+            enableSearch
+            placeholder="מספר טלפון"
+            country={'il'}
+            value={phone}
+            onChange={handleChangePhone}
+            countryCodeEditable={false}
+            />
           <Select
             placeholder='בחר סוג תרומה*'
             styles={customStyles}
@@ -200,3 +214,26 @@ const AddNewDonationPlace = () => {
 };
 
 export default AddNewDonationPlace;
+const phoneInputStyle = {
+  containerStyle: { marginBottom: "0.2rem"},
+  buttonStyle: {
+      height: "63px",
+      background: "#FFFFFF 0% 0% no-repeat padding-box",
+      borderColor: 'black',
+      borderRightColor: 'lightgrey',
+      borderWidth: 2,
+    },
+  inputStyle: {
+    width: "100%",
+    height: "63px",
+    background: "#FFFFFF 0% 0% no-repeat padding-box",
+    lineHeight: 1,
+    boxSizing: 'border-box',
+    borderColor: 'black',
+    borderWidth: 2,
+    outline: "none",
+    font: "normal normal normal 22px/32px Heebo",
+    letterSpacing: "0px",
+    color: "#363636",
+  }
+}
