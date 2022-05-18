@@ -14,7 +14,7 @@ function MarkerInfoView(props) {
         <label className='info_param'>{props.donation.distance.kilometers} קילומטרים</label><br />
         
         <label className='info_title'>יוצר: </label><label className='info_param'>{props.donation.creator}</label><br />
-        {props.donation?.phone && <><label className='info_title'>מספר טלפון: </label><a href={"tel:"+props.donation.phone} className='info_param'>{props.donation.phone}</a><br /></>}
+        {props.donation?.phone && <><label className='info_title'>מספר טלפון: </label><a href={"tel:"+props.donation.phone} className='info_param'>{props.donation.phone.replace("+","") + "+"}</a><br /></>}
         {props.donation?.website && <><label className='info_title'>ארגון: </label><a href={props.donation.website} className='info_param'>{props.donation.website}</a><br /></>}
         <label className='info_title'>תיאור: </label><label className='info_param'>{props.donation.description}</label><br/>
     </div>
