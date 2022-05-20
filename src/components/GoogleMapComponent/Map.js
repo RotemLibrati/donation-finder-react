@@ -42,6 +42,7 @@ function Map(props) {
     const [mapType, setMapType] = useState({ value: 'roadmap', label: 'ברירת מחדל', })
     const [showMarkerInfoView, setShowMarkerInfoView] = useState(-2)
 
+    const markerRef = useRef()
     const mapTypeOptions = [
       { value: 'roadmap', label: 'ברירת מחדל', },
       { value: 'hybrid', label: 'תמונת לוויין' },
@@ -105,6 +106,21 @@ function Map(props) {
         )
       }
 
+    const changeLocationAnimatiom = () => {
+      map.setZoom(10)
+      setTimeout(() => map.setZoom(map.getZoom()-0.1), 100)
+      setTimeout(() => map.setZoom(map.getZoom()-0.1), 200)
+      setTimeout(() => map.setZoom(map.getZoom()-0.1), 300)
+      setTimeout(() => map.setZoom(map.getZoom()+0.1), 400)
+      setTimeout(() => map.setZoom(map.getZoom()+0.1), 500)
+      setTimeout(() => map.setZoom(map.getZoom()+0.1), 600)
+      setTimeout(() => map.setZoom(map.getZoom()+0.1), 700)
+      setTimeout(() => map.setZoom(map.getZoom()+0.1), 800)
+      setTimeout(() => map.setZoom(map.getZoom()+0.1), 900)
+      setTimeout(() => map.setZoom(map.getZoom()+0.1), 1000)
+      setTimeout(() => map.setZoom(map.getZoom()+0.1), 1100)
+    }
+
     return (
       <div>
       { !isLoaded ? <label>Loading...</label> : <div style={{width:"100%",height:1000}}>
@@ -135,16 +151,17 @@ function Map(props) {
               zoom={15}
               mapContainerStyle={{ width: '100%', height: '100%', }}
               options={{
-                  zoomControl: false,
-                  streetViewControl: false,
+                  zoomControl: true,
+                  streetViewControl: true,
                   mapTypeControl: false,
-                  fullscreenControl: false,
+                  fullscreenControl: true,
+                  scaleControl: false,
                   mapTypeId: mapType.value,
                   styles: mapStyles
               }}
               onLoad={map => setMap(map)}
               >
-                  <Marker position={markerLocation} title="מיקום נוכחי מבוקש" onClick={(d) => {setShowMarkerInfoView(-1)}} 
+                  <Marker position={markerLocation} title="מיקום נוכחי מבוקש" onClick={(d) => {setShowMarkerInfoView(-1)}} ref={markerRef}
                   animation={1}>
                     {showMarkerInfoView === -1 &&  props && getMarkerInfoView(props?.chosenSearchDonation)} </Marker>
                   { // pin 10 first locations in the list (green) - https://www.freecodecamp.org/news/how-to-change-javascript-google-map-marker-color-8a72131d1207/
