@@ -48,8 +48,10 @@ function Map(props) {
     ];
 
     useEffect(() => {
-      if(props?.chosenSearchDonation != 'Empty')  
+      if(props?.chosenSearchDonation != 'Empty'){
         setMarkerLocation(props.chosenSearchDonation.location.coordinates)
+        setShowMarkerInfoView(-1)
+      }
       else { setMarkerLocation(props.userLocation) }
     },[props])
 
@@ -142,15 +144,17 @@ function Map(props) {
               }}
               onLoad={map => setMap(map)}
               >
-                  <Marker position={markerLocation} title="מיקום נוכחי מבוקש" onClick={(d) => {setShowMarkerInfoView(-1)}}>
+                  <Marker position={markerLocation} title="מיקום נוכחי מבוקש" onClick={(d) => {setShowMarkerInfoView(-1)}} 
+                  animation={1}>
                     {showMarkerInfoView === -1 &&  props && getMarkerInfoView(props?.chosenSearchDonation)} </Marker>
                   { // pin 10 first locations in the list (green) - https://www.freecodecamp.org/news/how-to-change-javascript-google-map-marker-color-8a72131d1207/
                       props.donations.map((d,i)=>(
-                          (i<10 && d?.location?.coordinates.lat !== markerLocation.lat) && d?.location?.coordinates.lng !== markerLocation.lng &&
+                          (d?.location?.coordinates.lat !== markerLocation.lat) && d?.location?.coordinates.lng !== markerLocation.lng &&
                         <>
                           <Marker position={d.location.coordinates} title={d.typeDonation} 
                             icon={ d.typeDonation in donationIcons ? donationIcons[d.typeDonation] : {url: "http://maps.google.com/mapfiles/ms/icons/info.png"} }
-                            onClick={(d) => {setShowMarkerInfoView(i)}}>
+                            onClick={(d) => {setShowMarkerInfoView(i)}}
+                            animation={4}>
                               {i===showMarkerInfoView && getMarkerInfoView(d) }
                             </Marker>
                         </>
