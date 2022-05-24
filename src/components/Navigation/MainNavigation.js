@@ -17,7 +17,7 @@ const MainNavigation = props => {
       <h1 className="main-navigation__title">
         <Link to="/">Donation</Link>
       </h1>
-      <nav>
+      <nav style={{ marginRight: 20}}>
         <NavLinks />
       </nav>
     </MainHeader>

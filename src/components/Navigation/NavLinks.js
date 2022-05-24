@@ -6,10 +6,10 @@ import './NavLinks.css';
 const NavLinks = props => {
   return <ul className="nav-links">
     <li>
-      <NavLink to="/donation/addDonation">Add Donation</NavLink>
+      <NavLink to="/donation/addDonation">הוסף מקום תרומה</NavLink>
     </li>
     <li>
-     <NavLink to="/" exact>Search Donation</NavLink>
+     <NavLink to="/" exact>חפש מיקום תרומה</NavLink>
     </li>
   </ul>
 };
