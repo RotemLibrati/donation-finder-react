@@ -35,7 +35,7 @@ const SearchDonation = () => {
         { value: 'typeDonation', label: 'סוג תרומה', checked: true },
         { value: 'address', label: 'כתובת', checked: false },
         { value: 'description', label: 'תיאור', checked: false },
-        { value: 'creator', label: 'יוצר', checked: false },
+        { value: 'creator', label: 'איש קשר', checked: false },
     ]);
     const [typeDonationList, setTypeDonationList] = useState([])
     const searchInputeRef = useRef();

@@ -170,7 +170,7 @@ const AddNewDonationPlace = () => {
       <div className='form__new_donation'>
         <label className='label'>הוסף תרומה חדשה</label>
         <form className="form" onSubmit={addDonationPlace} >
-          <input type="text" className="input" placeholder='שם היוצר*' onChange={handleChangeCreator} /> <br />
+          <input type="text" className="input" placeholder='איש קשר*' onChange={handleChangeCreator} /> <br />
           <input type="text" className="input" placeholder='תיאור*' onChange={handleChangeDescription} /> <br />
           <input type="text" className="input" placeholder='ארגון' onChange={handleChangeOrganization} /> <br />
           <input type="text" className="input" placeholder='קישור לאתר' onChange={handleChangeWebsite} /> <br />
