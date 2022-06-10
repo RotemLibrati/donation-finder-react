@@ -1,12 +1,12 @@
 # Donation Finder
 
-## Web aplication
-
-### Find the closest donation place to donate or take a donation.
+### Web aplication - Find the closest donation place to donate or take a donation.
 
 <a href='https://youtu.be/bS_d_YdTbeU'>
-  <img align="center"  alt="Watch the video" width="500px" src="./DonatioFinder.jpg" />
+  <img align="center"  alt="Watch the video" width="500px" src="./assets/DonatioFinder.jpg" />
 </a>
+
+---
 
 ### Backend Development:
 
@@ -50,3 +50,9 @@
 <img alt="HTML" src="https://img.shields.io/badge/HTML-e34c26?style=for-the-badge&logo=html5&logoColor=white" />
 <img alt="CSS" src="https://img.shields.io/badge/CSS-264de4?style=for-the-badge&logo=css3&logoColor=white" />
 </div>
+
+---
+
+### Architecture:
+
+<img align="center"  alt="Watch the video" width="800px" src="./assets/arc.png" />
