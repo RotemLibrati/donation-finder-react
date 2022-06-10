@@ -19,8 +19,6 @@
   <img alt="MongoDB" src="https://img.shields.io/badge/MongoDB-3FA037?style=for-the-badge&logo=mongodb&logoColor=white" />
 </div>
 
-[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=RotemLibrati&repo=donation-finder-nodejs&bg_color=white)](https://github.com/RotemLibrati/donation-finder-nodejs.git)
-
 ### Frontend Development:
 
 <a href='https://github.com/RotemLibrati/donation-finder-react.git'>
@@ -30,8 +28,6 @@
   <img alt="React" src="https://img.shields.io/badge/react-61DBFB?style=for-the-badge&logo=react&logoColor=white" />
   <img alt="Google API" src="https://img.shields.io/badge/google%20api-red?style=for-the-badge&logo=google&logoColor=white" />
 </div>
-
-[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=RotemLibrati&repo=donation-finder-react&bg_color=white)](https://github.com/RotemLibrati/donation-finder-react.git)
 
 ### Programming Languages:
 
