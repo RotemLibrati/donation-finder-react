@@ -26,6 +26,12 @@
 </a>
 <div>
   <img alt="React" src="https://img.shields.io/badge/react-61DBFB?style=for-the-badge&logo=react&logoColor=white" />
-  <img alt="HTML" src="https://img.shields.io/badge/HTML-e34c26?style=for-the-badge&logo=html5&logoColor=white" />
-  <img alt="CSS" src="https://img.shields.io/badge/CSS-264de4?style=for-the-badge&logo=css3&logoColor=white" />
+</div>
+
+### Programming Languages:
+
+<div>
+<img alt="Java Script" src="https://img.shields.io/badge/Java%20Script-f7df1e?style=for-the-badge&logo=javascript&logoColor=white" />
+<img alt="HTML" src="https://img.shields.io/badge/HTML-e34c26?style=for-the-badge&logo=html5&logoColor=white" />
+<img alt="CSS" src="https://img.shields.io/badge/CSS-264de4?style=for-the-badge&logo=css3&logoColor=white" />
 </div>
