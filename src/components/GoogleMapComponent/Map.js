@@ -6,8 +6,6 @@ import {
     useJsApiLoader,
     GoogleMap,
     Marker,
-    Autocomplete,
-    DirectionsRenderer,
     InfoWindow,
   } from '@react-google-maps/api'
   import { useRef, useState } from 'react'
@@ -15,11 +13,8 @@ import {
   import Select from 'react-select';
   import './Map.css'
 
-  import PopUpDitails from '../PopUpView/PopUpDitails'
 import MarkerInfoView from './MarkerInfoView';
-import { Label } from '@mui/icons-material';
 
-  var center = { lat: 48.8584, lng: 2.2945 }
   Geocode.setApiKey(`${API.api_key_google_maps}`)
 
   // set response language. Defaults to english.
@@ -185,7 +180,7 @@ function Map(props) {
 
 export default Map
 
-
+// using leaflet - not suport Hebrew
 // import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 
 

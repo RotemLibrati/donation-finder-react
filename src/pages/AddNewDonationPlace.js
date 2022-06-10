@@ -113,7 +113,10 @@ const AddNewDonationPlace = () => {
                 creator,
                 description,
                 typeDonation: typeDonation.value,
-                location: { "address": response.results[0].formatted_address, "coordinates": loc }
+                location: { "address": response.results[0].formatted_address, "coordinates": loc }, 
+                website, 
+                organization, 
+                phone
               }
             }
           })
