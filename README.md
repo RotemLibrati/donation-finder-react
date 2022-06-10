@@ -25,7 +25,7 @@
     <img alt="Frontend GitHub" src="https://img.shields.io/badge/Frontend%20GitHub-171515?style=for-the-badge&logo=github&logoColor=white" />
 </a>
 <div>
-<img alt="React" src="https://img.shields.io/badge/react-61DBFB?style=for-the-badge&logo=react&logoColor=white" />
-<img alt="HTML" src="https://img.shields.io/badge/HTML-e34c26?style=for-the-badge&logo=html5&logoColor=white" />
-<img alt="CSS" src="https://img.shields.io/badge/CSS-264de4?style=for-the-badge&logo=css3&logoColor=white" />
+  <img alt="React" src="https://img.shields.io/badge/react-61DBFB?style=for-the-badge&logo=react&logoColor=white" />
+  <img alt="HTML" src="https://img.shields.io/badge/HTML-e34c26?style=for-the-badge&logo=html5&logoColor=white" />
+  <img alt="CSS" src="https://img.shields.io/badge/CSS-264de4?style=for-the-badge&logo=css3&logoColor=white" />
 </div>
