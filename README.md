@@ -5,7 +5,7 @@
 ### Find the closest donation place to donate or take a donation.
 
 <a href='https://youtu.be/bS_d_YdTbeU'>
-  <img align="center"  alt="Watch the video" width="300px" src="./DonatioFinder.jpg" />
+  <img align="center"  alt="Watch the video" width="500px" src="./DonatioFinder.jpg" />
 </a>
 
 ### Backend Development:
