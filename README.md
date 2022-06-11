@@ -1,6 +1,6 @@
 # Donation Finder
 
-### Web aplication - Find the closest donation place to donate or take a donation.
+### Web aplication - Add a donation place or find the closest donation place to donate or take a donation.
 
 <a href='https://youtu.be/bS_d_YdTbeU'>
   <img align="center"  alt="Watch the video" width="500px" src="./assets/DonatioFinder.jpg" />
